@@ -899,12 +899,13 @@ def condense_question(query: str, history: list[ChatMessage]) -> str:
     
     prompt = (
         "Bạn là một chuyên gia phân tích ngữ nghĩa. Dưới đây là lịch sử trò chuyện ngắn và câu hỏi mới nhất của người dùng.\n"
-        "Nhiệm vụ: Viết lại câu hỏi mới nhất sao cho nó đứng độc lập mà vẫn mang đầy đủ ngữ nghĩa để tìm kiếm trong cơ sở dữ liệu.\n"
+        "Nhiệm vụ: Viết lại câu hỏi mới nhất sao cho nó đứng độc lập mà vẫn mang đầy đủ ngữ nghĩa để truy vấn.\n"
         "Quy tắc tối quan trọng:\n"
-        "1. Nếu câu hỏi mới HỎI TIẾP về sản phẩm/hãng ở câu trước (dùng đại từ 'nó', 'loại này', 'hãng này', 'thiết bị này', 'giá bao nhiêu', ...), hãy thay thế đại từ bằng tên sản phẩm/hãng đó.\n"
-        "2. Nếu câu hỏi mới ĐỔI CHỦ ĐỀ sang một loại thiết bị/hãng khác hoàn toàn (ví dụ: đang hỏi cảm biến chuyển sang hỏi máy hút bụi, PLC...), TUYỆT ĐỐI KHÔNG mang tên sản phẩm/hãng cũ vào câu hỏi mới.\n"
-        "3. Nếu câu hỏi mới đã đầy đủ ngữ nghĩa, giữ nguyên.\n"
-        "4. CHỈ trả về đúng MỘT CÂU được viết lại, không giải thích, không thêm ngoặc kép.\n\n"
+        "1. Nếu câu hỏi mới là một câu đính chính, mở rộng hoặc thu hẹp phạm vi của câu hỏi ngay trước đó (ví dụ: 'ý tôi là tất cả sản phẩm', 'tìm món rẻ nhất', 'loại màu đỏ'), BẮT BUỘC phải mang yêu cầu chính (intent) của câu hỏi trước đó ghép với phạm vi mới này.\n"
+        "2. Nếu câu hỏi mới HỎI TIẾP về sản phẩm/hãng ở câu trước (dùng đại từ 'nó', 'loại này', 'giá bao nhiêu', ...), hãy thay thế đại từ bằng tên sản phẩm/hãng đó.\n"
+        "3. Nếu câu hỏi mới ĐỔI CHỦ ĐỀ sang một loại thiết bị/hãng khác hoàn toàn, TUYỆT ĐỐI KHÔNG mang tên sản phẩm/hãng cũ vào câu hỏi mới.\n"
+        "4. Nếu câu hỏi mới đã đầy đủ ngữ nghĩa, giữ nguyên.\n"
+        "5. CHỈ trả về đúng MỘT CÂU được viết lại, không giải thích, không thêm ngoặc kép.\n\n"
         f"--- Lịch sử ---\n{history_text}\n"
         f"--- Câu hỏi mới ---\nUser: {query}\n"
         "--- Câu hỏi viết lại ---"
