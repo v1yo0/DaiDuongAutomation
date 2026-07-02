@@ -618,6 +618,7 @@ def get_synonyms_for_type(type_query: str) -> list[str]:
         ("relay", "rơ le", "ro le"): ["relay", "rơ le"],
         ("nguồn", "nguon", "power supply"): ["nguồn", "nguồn cấp", "power supply"],
         ("bộ chuyển đổi tín hiệu", "signal converter", "signal isolator"): ["bộ chuyển đổi tín hiệu", "signal converter"],
+        ("quần áo", "áo", "quần", "trang phục", "bảo hộ", "giày"): ["quần áo", "áo", "quần", "trang phục", "bảo hộ", "giày", "phòng sạch"],
     }
     
     t_norm = remove_vietnamese_accents(t)
@@ -691,7 +692,8 @@ def extract_metadata_from_text(text: str) -> dict:
         "van", "valve", "xi lanh", "cylinder", "khúc xạ kế", "kìm", "găng tay",
         "quạt", "fan", "hộp số", "gearbox", "bơm", "pump", "đầu nối", "connector",
         "biến tần", "inverter", "plc", "relay", "rơ le", "nguồn", "power supply",
-        "kích", "kích thủy lực", "thủy lực", "con rùa", "hydraulic", "hydraulic jack"
+        "kích", "kích thủy lực", "thủy lực", "con rùa", "hydraulic", "hydraulic jack",
+        "quần áo", "áo", "quần", "trang phục", "bảo hộ", "giày"
     ]
     sorted_types = sorted(type_keywords, key=len, reverse=True)
     for t_kw in sorted_types:
